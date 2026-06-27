@@ -1,7 +1,7 @@
 [project]
-name = "lets-implement-machine-learning"
+name = "gradience"
 version = "0.1.0"
-description = "Add your description here"
+description = "An open source project aimed to create an autograd engine later extended to a deep learning framework. "
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
