@@ -6,8 +6,11 @@ class Tensor:
     
     
     # Tensor initialization
-    def __init__(self, data, requires_grad=False):
-        self._data = np.asarray(data, dtype=np.float32)
+    def __init__(self, data, requires_grad=False, dtype=None):
+        if dtype is None:
+            self._data = np.asarray(data)
+        else:
+            self._data = np.asarray(data, dtype=dtype)
         self._grad = None
         self._requires_grad = requires_grad
         

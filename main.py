@@ -1,5 +1,5 @@
 def main():
-    print("Hello from lets-implement-machine-learning!")
+    print("Hello from Gradience!")
 
 
 if __name__ == "__main__":
