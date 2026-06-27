@@ -1,13 +1,28 @@
 # Python-generated files
 __pycache__/
 *.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-.pytest_cache
+.so
 .python-version
 
+#Jupyter
+.ipynb_checkpoints/
+
+#coverage
+.coverage
+htmlcov/
+
+#build
+build/
+dist/
+*.egg-info/
+
+#IDE
+.vscode/
+
+#python library
+.pytest_cache
+
+#custom
 LOGS.md
 
 # Virtual environments
