@@ -1,4 +1,5 @@
 import numpy as np
+from gradience.autograd.autograd_engine import AutogradEngine
 
 
 class Tensor:
@@ -77,15 +78,18 @@ class Tensor:
             f"Tensor(data={self.data}, "
             f"shape={self.shape}, "
             f"dtype={self.dtype}, "
-            f"requires_grad={self.requires_grad})"
+            f"requires_grad={self.requires_grad}, "
+            f"is_leaf={self._is_leaf})\n"
         )
-    
     
     @staticmethod
     def _as_tensor(value):
         if isinstance(value, Tensor):
             return value
         return Tensor(value)
+    
+    def backward(self):
+        AutogradEngine.backward(self)
     
     # operation definitions
     def __add__(self, other):
