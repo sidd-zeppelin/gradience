@@ -47,12 +47,28 @@ def test_tensor_cube_gradient():
     y.backward()
     
     assert abs(x.grad - grad) < 1e-6
+
+def test_gradcheck_square():
+    assert gradcheck(square, 2.0) is True
+
+def test_gradcheck_cube():
+    assert gradcheck(cube, 2.0) is True
+
+def test_gradcheck_failure():
+    import pytest
+    from gradience.autograd.function import Function
     
-def main():
-    # print(gradcheck(square, 2.0))
-    print(numerical_gradient(square, 2.0))
+    class BrokenOp(Function):
+        @staticmethod
+        def forward(ctx, x):
+            return x * x
+        @staticmethod
+        def backward(ctx, grad_output):
+            return (grad_output * 10.0,) # intentionally broken gradient
+            
+    def broken_square(x):
+        return BrokenOp.apply(x)
+        
+    with pytest.raises(AssertionError):
+        gradcheck(broken_square, 2.0)
     
-    
-    
-if __name__ == "__main__":
-    main()

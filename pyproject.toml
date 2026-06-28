@@ -12,3 +12,8 @@ dependencies = [
     "pytest>=9.1.1",
 ]
 license = "Apache-2.0"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

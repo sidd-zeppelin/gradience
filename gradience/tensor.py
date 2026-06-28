@@ -1,3 +1,4 @@
+from numpy._core import function_base
 import numpy as np
 from gradience.autograd.autograd_engine import AutogradEngine
 
@@ -93,7 +94,29 @@ class Tensor:
     
     def backward(self):
         AutogradEngine.backward(self)
+
+    def item(self):
+        return self._data.item()
+
+    def numpy(self):
+        return self._data
+
+    def zero_grad(self):
+        self.grad = None    
     
+    def clone(self):
+        return Tensor(
+            self.data.copy(),
+            requires_grad=self.requires_grad    
+        )
+    
+    def detach(self):
+        tensor = Tensor(
+            self.data,
+            requires_grad = False
+        )
+        return tensor
+
     # operation definitions
     def __add__(self, other):
         from gradience.ops.add import AddOp
@@ -109,3 +132,37 @@ class Tensor:
         
     def __rmul__(self, other):
         return self.__mul__(other)
+    
+    def __sub__(self, other):
+        from gradience.ops.subtract import SubtractOp
+        
+        other = Tensor._as_tensor(other)
+        return SubtractOp.apply(self, other)
+
+    def __truediv__(self, other):
+        from gradience.ops.division import DivisionOp
+        
+        other = Tensor._as_tensor(other)
+        return DivisionOp.apply(self, other)
+
+    def __rtruediv__(self, other):
+        from gradience.ops.division import DivisionOp
+        
+        other = Tensor._as_tensor(other)
+        return DivisionOp.apply(other, self)
+    
+    def __neg__(self):
+        from gradience.ops.negation import NegationOp
+        return NegationOp.apply(self)   
+
+    def __pow__(self, other):
+        from gradience.ops.power import PowerOp
+        
+        other = Tensor._as_tensor(other)
+        return PowerOp.apply(self, other)
+
+    def __rpow__(self, other):
+        from gradience.ops.power import PowerOp
+        
+        other = Tensor._as_tensor(other)
+        return PowerOp.apply(other, self)

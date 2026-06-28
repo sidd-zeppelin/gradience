@@ -3,10 +3,6 @@ import numpy as np
 class AutogradEngine:
 
     @staticmethod
-    def backward(tensor):
-        tensor.grad = np.ones_like(tensor.data)
-        
-    @staticmethod
     def _topological_sort(tensor):
         visited = set()
         order = []
@@ -43,11 +39,7 @@ class AutogradEngine:
                 node.context,
                 tensor.grad
             )
-            
-            grads = node.operation.backward(
-                node.context,
-                tensor.grad
-            )
+
             
             for parent, grad in zip(node.parents, grads):
                 if parent.grad is None:

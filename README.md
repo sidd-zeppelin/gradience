@@ -44,6 +44,10 @@ The goal is not to compete with production frameworks—it's to understand them.
 
 * Addition
 * Multiplication
+* Subtraction
+* Division
+* Power
+* Negation
 
 ### Testing Infrastructure
 
@@ -67,7 +71,11 @@ gradience/
 │
 ├── ops/
 │   ├── add.py
-│   └── multiply.py
+│   ├── multiply.py
+│   ├── subtract.py
+│   ├── division.py
+│   ├── power.py
+│   └── negation.py
 │
 ├── testing/
 │   └── gradcheck.py
@@ -119,9 +127,10 @@ print(y.grad)   # 2.0
 
 ### Phase 2 — Mathematical Operations
 
-* [ ] Subtraction
-* [ ] Division
-* [ ] Power
+* [x] Subtraction
+* [x] Division
+* [x] Power
+* [x] Negation
 * [ ] Exponential
 * [ ] Logarithm
 * [ ] Broadcasting
@@ -196,7 +205,20 @@ uv sync
 
 ## Running Tests
 
-pytest will be configured soon.
+Gradience has a robust, fully automated test suite configured with `pytest`. We maintain **100% test coverage** to ensure mathematical correctness across all operations and autograd mechanics.
+
+To run the full test suite:
+
+```bash
+uv run python -m pytest tests/
+```
+
+To run the test suite with coverage reporting:
+
+```bash
+uv pip install pytest-cov
+uv run python -m pytest --cov=gradience tests/
+```
 
 ---
 
@@ -222,6 +244,8 @@ The implementation is written independently and focuses on understanding the und
 ## Contributing
 
 Contributions, discussions, and suggestions are always welcome.
+
+We follow standard open-source practices. Please review our `CODE_OF_CONDUCT.md` and utilize the provided Issue and Pull Request templates in the `.github/` directory when submitting changes.
 
 Whether you're interested in machine learning, software engineering, numerical computing, or simply learning how deep learning frameworks work internally, feel free to open an issue or submit a pull request.
 
