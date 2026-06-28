@@ -4,7 +4,7 @@ from gradience.autograd.graph_node import GraphNode
 class Function:
     
     @classmethod
-    def apply(cls, *inputs):
+    def apply(cls, *inputs, **kwargs):
         from gradience.tensor import Tensor
         
         ctx = Context()
@@ -12,7 +12,7 @@ class Function:
             tensor.data
             for tensor in inputs
         )
-        result = cls.forward(ctx, *raw_inputs)
+        result = cls.forward(ctx, *raw_inputs, **kwargs)
         requires_grad=cls._requires_grad(inputs)
         
         output = Tensor._from_operation(

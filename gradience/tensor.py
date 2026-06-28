@@ -5,6 +5,8 @@ from gradience.autograd.autograd_engine import AutogradEngine
 
 class Tensor:
     
+    __array_priority__ = 1000
+    __array_ufunc__ = None
     
     # Tensor initialization
     def __init__(self, data, requires_grad=False, dtype=None):
@@ -166,3 +168,75 @@ class Tensor:
         
         other = Tensor._as_tensor(other)
         return PowerOp.apply(other, self)
+
+    def exp(self):
+        from gradience.ops.exponential import ExpOp
+        return ExpOp.apply(self)
+
+    def log(self, base=None):
+        import numpy as np
+        if base is None:
+            base = np.e
+        from gradience.ops.logarithm import LogOp
+        return LogOp.apply(self, base=base)
+        
+    def sqrt(self):
+        from gradience.ops.sqrt import SqrtOp
+        return SqrtOp.apply(self)
+
+    def sin(self):
+        from gradience.ops.sin import SinOp
+        return SinOp.apply(self)
+
+    def cos(self):
+        from gradience.ops.cos import CosOp
+        return CosOp.apply(self)
+
+    def tan(self):
+        from gradience.ops.tan import TanOp
+        return TanOp.apply(self)
+
+    def asin(self):
+        from gradience.ops.asin import ASinOp
+        return ASinOp.apply(self)
+
+    def acos(self):
+        from gradience.ops.acos import ACosOp
+        return ACosOp.apply(self)
+
+    def atan(self):
+        from gradience.ops.atan import ATanOp
+        return ATanOp.apply(self)
+
+    def sum(self, axis=None, keepdims=False):
+        from gradience.ops.sum import SumOp
+        return SumOp.apply(self, axis=axis, keepdims=keepdims)
+
+    def mean(self, axis=None, keepdims=False):
+        from gradience.ops.mean import MeanOp
+        return MeanOp.apply(self, axis=axis, keepdims=keepdims)
+
+    def __matmul__(self, other):
+        from gradience.ops.matmul import MatMulOp
+        other = Tensor._as_tensor(other)
+        return MatMulOp.apply(self, other)
+
+    def __rmatmul__(self, other):
+        from gradience.ops.matmul import MatMulOp
+        other = Tensor._as_tensor(other)
+        return MatMulOp.apply(other, self)
+
+    def matmul(self, other):
+        return self.__matmul__(other)
+
+    def relu(self):
+        from gradience.ops.relu import ReLUOp
+        return ReLUOp.apply(self)
+
+    def sigmoid(self):
+        from gradience.ops.sigmoid import SigmoidOp
+        return SigmoidOp.apply(self)
+
+    def tanh(self):
+        from gradience.ops.tanh import TanhOp
+        return TanhOp.apply(self)

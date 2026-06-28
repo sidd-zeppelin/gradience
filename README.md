@@ -48,6 +48,12 @@ The goal is not to compete with production frameworks—it's to understand them.
 * Division
 * Power
 * Negation
+* Exponential
+* Logarithm
+* Square Root
+* Trigonometric (sin, cos, tan, asin, acos, atan)
+* Reductions (sum, mean)
+* Matrix Multiplication (matmul)
 
 ### Testing Infrastructure
 
@@ -64,7 +70,7 @@ The goal is not to compete with production frameworks—it's to understand them.
 gradience/
 │
 ├── autograd/
-│   ├── engine.py
+│   ├── autograd_engine.py
 │   ├── context.py
 │   ├── function.py
 │   └── graph_node.py
@@ -75,7 +81,22 @@ gradience/
 │   ├── subtract.py
 │   ├── division.py
 │   ├── power.py
-│   └── negation.py
+│   ├── negation.py
+│   ├── exponential.py
+│   ├── logarithm.py
+│   ├── sqrt.py
+│   ├── sin.py
+│   ├── cos.py
+│   ├── tan.py
+│   ├── asin.py
+│   ├── acos.py
+│   ├── atan.py
+│   ├── sum.py
+│   ├── mean.py
+│   ├── matmul.py
+│   ├── relu.py
+│   ├── sigmoid.py
+│   └── tanh.py
 │
 ├── testing/
 │   └── gradcheck.py
@@ -131,16 +152,20 @@ print(y.grad)   # 2.0
 * [x] Division
 * [x] Power
 * [x] Negation
-* [ ] Exponential
-* [ ] Logarithm
+* [x] Exponential
+* [x] Logarithm
+* [x] Square Root
+* [x] Trigonometric Functions
+* [x] Reductions (sum, mean)
+* [x] Matrix multiplication
 * [ ] Broadcasting
-* [ ] Matrix multiplication
 
 ### Phase 3 — Neural Network API
 
-* [ ] Parameter
-* [ ] Module
-* [ ] Linear layer
+* [x] Activations (ReLU, Sigmoid, Tanh)
+* [ ] Parameter abstraction
+* [ ] Base Module class
+* [ ] Linear/Dense Layer
 * [ ] Sequential container
 * [ ] Activation functions
 * [ ] Loss functions

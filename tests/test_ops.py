@@ -123,4 +123,109 @@ def test_scalar_power(assert_eq):
         [8.0, 16.0]
     )
 
+def test_exponential(assert_close):
+    import numpy as np
+    x = Tensor([1.0, 2.0])
+    y = x.exp()
+    assert_close(y.data, np.exp([1.0, 2.0]))
+
+def test_log(assert_close):
+    import numpy as np
+    x = Tensor([1.0, np.e])
+    y = x.log()
+    assert_close(y.data, np.log([1.0, np.e]))
+    
+    z = x.log(base=2)
+    assert_close(z.data, np.log([1.0, np.e]) / np.log(2))
+
+def test_sqrt(assert_close):
+    import numpy as np
+    x = Tensor([1.0, 4.0])
+    y = x.sqrt()
+    assert_close(y.data, np.sqrt([1.0, 4.0]))
+
+def test_sum(assert_close):
+    import numpy as np
+    x = Tensor([[1.0, 2.0], [3.0, 4.0]])
+    assert_close(x.sum().data, np.sum([[1.0, 2.0], [3.0, 4.0]]))
+    assert_close(x.sum(axis=0).data, np.sum([[1.0, 2.0], [3.0, 4.0]], axis=0))
+    assert_close(x.sum(axis=1, keepdims=True).data, np.sum([[1.0, 2.0], [3.0, 4.0]], axis=1, keepdims=True))
+
+def test_mean(assert_close):
+    import numpy as np
+    x = Tensor([[1.0, 2.0], [3.0, 4.0]])
+    assert_close(x.mean().data, np.mean([[1.0, 2.0], [3.0, 4.0]]))
+    assert_close(x.mean(axis=0).data, np.mean([[1.0, 2.0], [3.0, 4.0]], axis=0))
+    assert_close(x.mean(axis=1, keepdims=True).data, np.mean([[1.0, 2.0], [3.0, 4.0]], axis=1, keepdims=True))
+
+def test_sin(assert_close):
+    import numpy as np
+    x = Tensor([0.0, np.pi/2])
+    assert_close(x.sin().data, np.sin([0.0, np.pi/2]))
+
+def test_matmul(assert_close):
+    import numpy as np
+    x = Tensor([[1.0, 2.0], [3.0, 4.0]])
+    y = Tensor([[5.0, 6.0], [7.0, 8.0]])
+    
+    assert_close((x @ y).data, np.matmul(x.data, y.data))
+    assert_close(x.matmul(y).data, np.matmul(x.data, y.data))
+    
+    # test 1D dot product
+    v1 = Tensor([1.0, 2.0])
+    v2 = Tensor([3.0, 4.0])
+    assert_close((v1 @ v2).data, np.matmul(v1.data, v2.data))
+    
+    # test 1D @ 2D
+    assert_close((v1 @ y).data, np.matmul(v1.data, y.data))
+    
+    # test 2D @ 1D
+    assert_close((x @ v2).data, np.matmul(x.data, v2.data))
+    
+    # test __rmatmul__
+    assert_close((x.data @ y).data, np.matmul(x.data, y.data))
+
+def test_relu(assert_close):
+    import numpy as np
+    x = Tensor([-2.0, 0.0, 2.0])
+    y = x.relu()
+    assert_close(y.data, np.array([0.0, 0.0, 2.0]))
+
+def test_sigmoid(assert_close):
+    import numpy as np
+    x = Tensor([-1.0, 0.0, 1.0])
+    y = x.sigmoid()
+    assert_close(y.data, 1.0 / (1.0 + np.exp(-np.array([-1.0, 0.0, 1.0]))))
+
+def test_tanh(assert_close):
+    import numpy as np
+    x = Tensor([-1.0, 0.0, 1.0])
+    y = x.tanh()
+    assert_close(y.data, np.tanh([-1.0, 0.0, 1.0]))
+
+def test_cos(assert_close):
+    import numpy as np
+    x = Tensor([0.0, np.pi/2])
+    assert_close(x.cos().data, np.cos([0.0, np.pi/2]))
+
+def test_tan(assert_close):
+    import numpy as np
+    x = Tensor([0.0, np.pi/4])
+    assert_close(x.tan().data, np.tan([0.0, np.pi/4]))
+
+def test_asin(assert_close):
+    import numpy as np
+    x = Tensor([0.0, 1.0])
+    assert_close(x.asin().data, np.arcsin([0.0, 1.0]))
+
+def test_acos(assert_close):
+    import numpy as np
+    x = Tensor([0.0, 1.0])
+    assert_close(x.acos().data, np.arccos([0.0, 1.0]))
+
+def test_atan(assert_close):
+    import numpy as np
+    x = Tensor([0.0, 1.0])
+    assert_close(x.atan().data, np.arctan([0.0, 1.0]))
+
     
