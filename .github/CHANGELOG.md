@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced NumPy interoperability by configuring `__array_priority__` and `__array_ufunc__`.
 - Refactored test suite to use a uniform `conftest.py` with custom assertion fixtures.
 - Achieved strictly verified 100% test coverage across the entire codebase.
+- Implemented tensor broadcasting and backward pass unbroadcasting for element-wise operations.
 
 ### Fixed
 - Fixed an unreachable and duplicated backward pass definition in `AutogradEngine`.
 - Fixed a gradient tensor iteration bug during the backward pass of unary operations.
+- Fixed a mathematical error in the subtraction operation backward pass and its associated unit test.

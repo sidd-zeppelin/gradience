@@ -158,7 +158,7 @@ print(y.grad)   # 2.0
 * [x] Trigonometric Functions
 * [x] Reductions (sum, mean)
 * [x] Matrix multiplication
-* [ ] Broadcasting
+* [x] Broadcasting
 
 ### Phase 3 — Neural Network API
 

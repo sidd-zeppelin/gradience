@@ -49,7 +49,7 @@ def test_subtraction_backward(assert_eq):
     z.backward()
     
     assert_eq(x.grad, [1.0])
-    assert_eq(y.grad, [1.0])
+    assert_eq(y.grad, [-1.0])
             
 def test_scalar_subtraction_backward(assert_eq):
     x = Tensor([5.0], requires_grad=True)

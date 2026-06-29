@@ -1,11 +1,18 @@
 from gradience.autograd.function import Function
+from gradience.utils.broadcast import unbroadcast
 
 class AddOp(Function):
     
     @staticmethod
     def forward(ctx, x, y):
+        ctx.save_for_backward(x, y)
         return x + y
     
     @staticmethod
     def backward(ctx, grad_output):
-        return grad_output, grad_output
+        x, y = ctx.saved_tensors
+        
+        grad_x = unbroadcast(grad_output, x.shape)
+        grad_y = unbroadcast(grad_output, y.shape)
+        
+        return grad_x, grad_y
