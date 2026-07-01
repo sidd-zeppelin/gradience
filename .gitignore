@@ -22,8 +22,5 @@ dist/
 #python library
 .pytest_cache
 
-#custom
-LOGS.md
-
 # Virtual environments
 .venv

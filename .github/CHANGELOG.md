@@ -20,8 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored test suite to use a uniform `conftest.py` with custom assertion fixtures.
 - Achieved strictly verified 100% test coverage across the entire codebase.
 - Implemented tensor broadcasting and backward pass unbroadcasting for element-wise operations.
+- Implemented Parameter abstraction for tracking learnable weights in Neural Networks.
 
 ### Fixed
 - Fixed an unreachable and duplicated backward pass definition in `AutogradEngine`.
 - Fixed a gradient tensor iteration bug during the backward pass of unary operations.
 - Fixed a mathematical error in the subtraction operation backward pass and its associated unit test.
+- Fixed an Autograd Engine bug to prevent wasteful gradient accumulation for tensors with `requires_grad=False`.

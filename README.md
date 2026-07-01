@@ -163,7 +163,7 @@ print(y.grad)   # 2.0
 ### Phase 3 — Neural Network API
 
 * [x] Activations (ReLU, Sigmoid, Tanh)
-* [ ] Parameter abstraction
+* [x] Parameter abstraction
 * [ ] Base Module class
 * [ ] Linear/Dense Layer
 * [ ] Sequential container
