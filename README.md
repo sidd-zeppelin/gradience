@@ -22,105 +22,31 @@ The goal is not to compete with production frameworks—it's to understand them.
 
 ---
 
-## Current Progress
 
-### Core Tensor Engine
-
-* NumPy-backed tensors
-* Gradient storage
-* Automatic computation graph construction
-* Dynamic graph execution
-* Operator overloading
-
-### Reverse-Mode Automatic Differentiation
-
-* Reverse topological traversal
-* Chain rule implementation
-* Gradient accumulation
-* Context-based operation execution
-* Dynamic computation graph
-
-### Supported Operations
-
-* Addition
-* Multiplication
-* Subtraction
-* Division
-* Power
-* Negation
-* Exponential
-* Logarithm
-* Square Root
-* Trigonometric (sin, cos, tan, asin, acos, atan)
-* Reductions (sum, mean)
-* Matrix Multiplication (matmul)
-
-### Testing Infrastructure
-
-* Unit tests
-* Autograd tests
-* Numerical gradient checking
-* Multi-input gradient verification
-
-### Neural Network API
-
-* `Module` base class for stateful tracking
-* `Parameter` abstractions for dynamic weight discovery
-* `Linear` (Dense) layers with custom initializers
-* `Sequential` containers with iterable Python indexing
-
----
 
 ## Project Architecture
 
 ```text
 gradience/
 │
-├── autograd/
-│   ├── autograd_engine.py
-│   ├── context.py
-│   ├── function.py
-│   └── graph_node.py
+├── autograd/          # Core AD engine (graph nodes, context)
 │
-├── nn/
-│   ├── activations/
-│   ├── containers/
-│   ├── layers/
-│   │   └── linear.py
-│   ├── losses/
-│   ├── init.py
-│   ├── module.py
-│   └── parameter.py
+├── nn/                # Neural Network API
+│   ├── activations/   # ReLU, Sigmoid, Tanh
+│   ├── containers/    # Sequential models
+│   ├── layers/        # Linear layers
+│   ├── losses/        # MSE, L1, CrossEntropy, BCE
+│   ├── init.py        # Weight initializers
+│   ├── module.py      # Base Module class
+│   └── parameter.py   # Trainable weights abstraction
 │
-├── ops/
-│   ├── add.py
-│   ├── multiply.py
-│   ├── subtract.py
-│   ├── division.py
-│   ├── power.py
-│   ├── negation.py
-│   ├── exponential.py
-│   ├── logarithm.py
-│   ├── sqrt.py
-│   ├── sin.py
-│   ├── cos.py
-│   ├── tan.py
-│   ├── asin.py
-│   ├── acos.py
-│   ├── atan.py
-│   ├── sum.py
-│   ├── mean.py
-│   ├── matmul.py
-│   ├── relu.py
-│   ├── sigmoid.py
-│   └── tanh.py
+├── ops/               # Differentiable primitive operations (add, mul, exp, etc.)
 │
-├── optim/
+├── optim/             # Optimizers (SGD, Adam, AdamW, RMSprop, Adagrad)
 │
-├── tensor.py
+├── tensor.py          # The core Tensor data structure
 │
-└── testing/
-    └── gradcheck.py
+└── testing/           # Numerical gradient checking utilities
 ```
 
 The project is intentionally modular.
@@ -171,47 +97,43 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ---
 
-## Roadmap
+## Features
 
-### Phase 1 — Core Autograd Engine
+### Core Engine
+* **NumPy-Backed Tensors**: Fast, underlying C-optimized matrix math.
+* **Dynamic Computation Graph**: Builds reverse-mode automatic differentiation on the fly.
+* **Broadcasting**: Natively supports full dimensional broadcasting during forward and backward passes.
+* **Gradient Accumulation**: Handles arbitrary node branching and re-convergence.
 
-* [x] Tensor implementation
-* [x] Dynamic computation graph
-* [x] Reverse-mode automatic differentiation
-* [x] Gradient accumulation
-* [x] Numerical gradient checking
+### Mathematical Operations
+* Arithmetic: `add`, `sub`, `mul`, `div`, `pow`, `neg`
+* Transcendental: `exp`, `log`, `sqrt`
+* Trigonometry: `sin`, `cos`, `tan`, `asin`, `acos`, `atan`
+* Reductions: `sum`, `mean` (with `keepdims` support)
+* Matrix Math: `matmul` (`@`)
 
-### Phase 2 — Mathematical Operations
+### Neural Network API (`gradience.nn`)
+* **Modules & Parameters**: Abstract base classes for building stateful models.
+* **Layers**: `Linear` (Dense).
+* **Containers**: `Sequential` models.
+* **Activations**: `ReLU`, `Sigmoid`, `Tanh`.
+* **Loss Functions**: `MSELoss`, `L1Loss`, `CrossEntropyLoss` (Fused), `BCEWithLogitsLoss` (Fused).
+* **Initializers**: `he_uniform`, `xavier_uniform`, `normal`, `zeros`, etc.
 
-* [x] Subtraction
-* [x] Division
-* [x] Power
-* [x] Negation
-* [x] Exponential
-* [x] Logarithm
-* [x] Square Root
-* [x] Trigonometric Functions
-* [x] Reductions (sum, mean)
-* [x] Matrix multiplication
-* [x] Broadcasting
+### Optimizers (`gradience.optim`)
+* **SGD**: Stochastic Gradient Descent (with Momentum & Nesterov).
+* **Adam**: Adaptive Moment Estimation.
+* **AdamW**: Adam with Decoupled Weight Decay.
+* **RMSprop**: Root Mean Square Propagation.
+* **Adagrad**: Adaptive Gradients.
 
-### Phase 3 — Neural Network API
+---
 
-* [x] Activations (ReLU, Sigmoid, Tanh)
-* [x] Parameter abstraction
-* [x] Base Module class
-* [x] Linear/Dense Layer
-* [x] Sequential container
-* [x] Activation functions
-* [x] Loss functions
-
-### Phase 4 — Training
-
-* [x] Optimizers
-* [x] SGD
-* [ ] Adam
-* [ ] Learning rate schedulers
-* [x] End-to-end neural network training
+## Upcoming Features (v0.2.0+)
+* Learning rate schedulers
+* Dropout layers
+* Batch Normalization
+* Convolutional Layers (Conv2D)
 
 ---
 

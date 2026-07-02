@@ -240,3 +240,7 @@ class Tensor:
     def tanh(self):
         from gradience.ops.tanh import TanhOp
         return TanhOp.apply(self)
+        
+    def abs(self):
+        from gradience.ops.abs import Abs
+        return Abs.apply(self)

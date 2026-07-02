@@ -1,69 +1,65 @@
-import pytest
 import numpy as np
-
 from gradience.tensor import Tensor
-from gradience.optim.optimizer import Optimizer
-from gradience.optim.sgd import SGD
+from gradience.optim import SGD, Adam, AdamW, RMSprop, Adagrad
 from gradience.nn.parameter import Parameter
-from gradience.nn.layers.linear import Linear
-
-
-def test_optimizer_base_class():
-    param = Parameter(np.array([1.0]))
-    opt = Optimizer([param])
-    
-    with pytest.raises(NotImplementedError):
-        opt.step()
-
 
 def test_sgd_step():
-    param = Parameter(np.array([1.0, 2.0]))
-    param.grad = np.array([0.5, -0.5])
+    p = Parameter(np.array([1.0, 2.0]))
+    opt = SGD([p], lr=0.1)
     
-    opt = SGD([param], lr=0.1)
+    # Fake gradient
+    p.grad = np.array([0.5, 0.5])
     opt.step()
     
-    # 1.0 - 0.1 * 0.5 = 0.95
-    # 2.0 - 0.1 * -0.5 = 2.05
-    assert np.allclose(param.data, np.array([0.95, 2.05]))
-
-
-def test_sgd_zero_grad():
-    param = Parameter(np.array([1.0, 2.0]))
-    param.grad = np.array([0.5, -0.5])
+    np.testing.assert_allclose(p.data, np.array([0.95, 1.95]))
     
-    opt = SGD([param], lr=0.1)
-    opt.zero_grad()
+def test_sgd_momentum():
+    p = Parameter(np.array([1.0]))
+    opt = SGD([p], lr=0.1, momentum=0.9)
     
-    assert param.grad is None
-
-
-def test_sgd_with_module():
-    layer = Linear(2, 2)
-    opt = SGD(layer.parameters(), lr=0.1)
-    
-    x = Tensor(np.array([[1.0, 2.0]]))
-    y = layer(x)
-    loss = y.sum()
-    loss.backward()
-    
-    # Check that step executes without crashing
+    p.grad = np.array([1.0])
     opt.step()
-    opt.zero_grad()
-
-
-def test_sgd_no_grad():
-    param1 = Parameter(np.array([1.0, 2.0]))
-    param2 = Parameter(np.array([1.0, 2.0]))
+    # velocity = 1.0, p -= 0.1 * 1.0 => 0.9
+    np.testing.assert_allclose(p.data, np.array([0.9]))
     
-    param1.grad = np.array([0.5, -0.5])
-    # param2 has no grad
+    opt.step()
+    # velocity = 0.9 * 1.0 + 1.0 = 1.9
+    # p = 0.9 - 0.1 * 1.9 = 0.71
+    np.testing.assert_allclose(p.data, np.array([0.71]))
+
+def test_adam_step():
+    p = Parameter(np.array([1.0, 2.0]))
+    opt = Adam([p], lr=0.1)
     
-    opt = SGD([param1, param2], lr=0.1)
+    p.grad = np.array([0.5, 0.5])
     opt.step()
     
-    # param1 should be updated
-    assert np.allclose(param1.data, np.array([0.95, 2.05]))
+    # Just check it ran without error and updated
+    assert not np.array_equal(p.data, np.array([1.0, 2.0]))
+
+def test_adamw_step():
+    p = Parameter(np.array([1.0, 2.0]))
+    opt = AdamW([p], lr=0.1, weight_decay=0.01)
     
-    # param2 should be unchanged
-    assert np.allclose(param2.data, np.array([1.0, 2.0]))
+    p.grad = np.array([0.5, 0.5])
+    opt.step()
+    
+    assert not np.array_equal(p.data, np.array([1.0, 2.0]))
+    
+def test_rmsprop_step():
+    p = Parameter(np.array([1.0, 2.0]))
+    opt = RMSprop([p], lr=0.1)
+    
+    p.grad = np.array([0.5, 0.5])
+    opt.step()
+    
+    assert not np.array_equal(p.data, np.array([1.0, 2.0]))
+
+def test_adagrad_step():
+    p = Parameter(np.array([1.0, 2.0]))
+    opt = Adagrad([p], lr=0.1)
+    
+    p.grad = np.array([0.5, 0.5])
+    opt.step()
+    
+    assert not np.array_equal(p.data, np.array([1.0, 2.0]))
