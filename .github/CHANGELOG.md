@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-07-03
 ### Added
 - Implemented Neural Network Layers: `Dropout`, `BatchNorm1d`, and `LayerNorm`.
 - Implemented advanced optimization algorithms: `Adam`, `AdamW`, `RMSprop`, and `Adagrad`.
 - Enhanced `SGD` with support for `momentum`, `nesterov` acceleration, and `weight_decay`.
 - Implemented robust loss functions: `CrossEntropyLoss` and `BCEWithLogitsLoss` using numerically stable fused `ops`, alongside standard `L1Loss`.
+- Added the `Abs` primitive operation and `Tensor.abs()` method.
 - Added comprehensive step-by-step tutorials (`tutorial_1_linear_regression.md`, `tutorial_2_deep_learning.md`) bridging the gap between theoretical knowledge and practical framework usage.
 - Restructured framework documentation into a clean architecture containing design philosophy (`DESIGN.md`), roadmap (`ROADMAP.md`), contribution guidelines (`CONTRIBUTING.md`), high-level architecture (`ARCHITECTURE.md`), and subsystem internals (`docs/internals/`).
 
