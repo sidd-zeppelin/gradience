@@ -181,18 +181,28 @@ uv run python -m pytest --cov=gradience tests/
 
 ## Documentation
 
-We have a complete, in-depth guide on how Gradience implements deep learning from scratch. Read through the guides below to understand how the framework works under the hood:
+Explore our structured documentation to understand the framework's design, internals, and usage:
 
-1. [Gradience Under the Hood: An Introduction](docs/01_Introduction.md)
-2. [Tensors: The Smart Data Containers](docs/02_Tensors.md)
-3. [The Computational Graph](docs/03_Computational_Graph.md)
-4. [Functions and Context](docs/04_Functions_and_Context.md)
-5. [The Autograd Engine](docs/05_Autograd_Engine.md)
-6. [Neural Networks](docs/06_Neural_Networks.md)
-7. [Code Execution & Broadcasting](docs/08_Under_The_Hood_Code_Execution.md)
-8. [Testing & Gradcheck](docs/09_Testing_and_Gradcheck.md)
-9. [Experiments and Validation](docs/10_Experiments_and_Validation.md)
-10. [API Reference](docs/07_API_Reference.md)
+### High-Level Documentation
+* **[Architecture Guide](docs/ARCHITECTURE.md)**: Conceptual diagram and explanation of the core layers.
+* **[Design Philosophy & Decisions](docs/DESIGN.md)**: Architectural choices, trade-offs, and stability decisions.
+* **[Future Roadmap](docs/ROADMAP.md)**: Planned phases, algorithms, and features.
+* **[Contributing Guidelines](docs/CONTRIBUTING.md)**: Guidelines for adding operations, layers, and writing tests.
+
+### Subsystem Internals
+* **[Tensor Engine](docs/internals/tensor.md)**: Smart containers, properties, and operator overloading.
+* **[Autograd Mechanics](docs/internals/autograd.md)**: Dynamic graphs, topological sorting, and reverse differentiation.
+* **[Module Abstractions](docs/internals/module.md)**: Parameter discovery, state tracking, and sequential layers.
+* **[Broadcasting Math](docs/internals/broadcasting.md)**: Handling implicit and explicit shape matching in backpropagation.
+* **[Numerical testing & gradcheck](docs/internals/testing.md)**: How numerical finite difference testing is used to verify analytical gradients.
+
+### Step-by-Step Tutorials
+* **[Tutorial 1: Training Your First Model](docs/tutorials/tutorial_1_linear_regression.md)**: Build a simple linear regression model and write a custom training loop.
+* **[Tutorial 2: Building Deep Neural Networks](docs/tutorials/tutorial_2_deep_learning.md)**: Solve the non-linear XOR classification boundary using multi-layer perceptrons (MLPs).
+
+### API Reference
+* **[API Reference](docs/API_Reference.md)**: Full signatures and parameters of all operators, layers, and optimizers.
+* **[Experiments & Validation](docs/experiments.md)**: Verification of accuracy and convergence relative to PyTorch.
 
 ---
 

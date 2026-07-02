@@ -57,4 +57,4 @@ y = Tensor(3.0, requires_grad=True)
 z = x * y
 ```
 
-By wrapping our numbers inside this smart Tensor class, we have laid the foundation for Automatic Differentiation. The next step is to see how these Tensors link together to form a map. We cover that in the next section: **[The Computational Graph](03_Computational_Graph.md)**.
+By wrapping our numbers inside this smart Tensor class, we have laid the foundation for Automatic Differentiation. The next step is to see how these Tensors link together to form a map. We cover that in the next section: **[The Computational Graph](autograd.md)**.
