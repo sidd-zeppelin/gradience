@@ -227,30 +227,6 @@ Gradience is built around a few core principles:
 
 ---
 
-## Development Workflow
-
-Every new differentiable operation follows the same process:
-
-```text
-Implement Forward
-        │
-        ▼
-Implement Backward
-        │
-        ▼
-Unit Tests
-        │
-        ▼
-Gradient Check
-        │
-        ▼
-Commit
-```
-
-This workflow ensures mathematical correctness as the framework grows.
-
----
-
 ## Installation
 
 ```bash
