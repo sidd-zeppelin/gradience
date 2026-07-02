@@ -164,7 +164,7 @@ print(y.grad)   # 2.0
 
 * [x] Activations (ReLU, Sigmoid, Tanh)
 * [x] Parameter abstraction
-* [ ] Base Module class
+* [x] Base Module class
 * [ ] Linear/Dense Layer
 * [ ] Sequential container
 * [ ] Activation functions
