@@ -16,7 +16,7 @@ Modern machine learning frameworks are incredibly powerful, but their internal w
 
 Gradience is an educational deep learning framework that rebuilds those ideas from first principles while maintaining clean software architecture and engineering practices.
 
-Rather than treating machine learning as a black box, this project explores how frameworks like PyTorch work internally by implementing every major component ourselves.
+Rather than treating machine learning as a black box, this project explores how neural networks work internally by implementing every major component ourselves.
 
 The goal is not to compete with production frameworks—it's to understand them.
 
@@ -249,7 +249,17 @@ uv run python -m pytest --cov=gradience tests/
 
 ## Documentation
 
-The Docs will be worked upon soon.
+We have a complete, in-depth guide on how Gradience implements deep learning from scratch. Read through the guides below to understand how the framework works under the hood:
+
+1. [Gradience Under the Hood: An Introduction](docs/01_Introduction.md)
+2. [Tensors: The Smart Data Containers](docs/02_Tensors.md)
+3. [The Computational Graph](docs/03_Computational_Graph.md)
+4. [Functions and Context](docs/04_Functions_and_Context.md)
+5. [The Autograd Engine](docs/05_Autograd_Engine.md)
+6. [Neural Networks](docs/06_Neural_Networks.md)
+7. [Code Execution & Broadcasting](docs/08_Under_The_Hood_Code_Execution.md)
+8. [Testing & Gradcheck](docs/09_Testing_and_Gradcheck.md)
+9. [API Reference](docs/07_API_Reference.md)
 
 ---
 
