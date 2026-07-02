@@ -1,37 +1,268 @@
-# Design Philosophy & Decisions
+# Gradience Design Philosophy & decisions
 
-This document details the architectural decisions and trade-offs driving the development of the Gradience framework.
+> **How we make choices, keep abstractions clean, and maintain stability.**
 
 ---
 
-## 1. Educational Clarity vs. Raw Speed
+# Philosophy
 
-The primary target of Gradience is to teach how automatic differentiation and neural network layers function under the hood.
+Gradience follows five fundamental principles.
 
-* **Trade-off:** We rely on NumPy for low-level matrix computations rather than custom C++/CUDA code. 
-* **Reasoning:** Pure Python/NumPy logic is extremely readable. Writing CUDA kernels would obscure the underlying algorithmic implementations for the learner. 
+---
 
-## 2. Separation of Tensors and Operations
+## 1. Simplicity over Cleverness
 
-The `Tensor` class is kept as a simple, stateless wrapper around a data array. All mathematical operations are defined in separate classes inheriting from `Function` (e.g., `AddOp`, `MultOp`, `CrossEntropy`).
+Implementations should prioritize readability over clever optimizations.
 
-* **Reasoning:** This prevents the `Tensor` class from becoming a monolithic file containing thousands of lines of unrelated mathematical code. It makes adding a new operation as simple as dropping a new file into `gradience/ops/`.
+Every algorithm should be understandable after a careful read.
 
-## 3. Fused Operations for Numerical Stability
+---
 
-While most layers (such as `BatchNorm1d`) are built by composing primitive tensor operations, some components must be "fused" for numerical stability.
+## 2. Explicit over Implicit
 
-* **Example:** `CrossEntropyLoss` and `BCEWithLogitsLoss`.
-* **Reasoning:** If implemented as chains of individual operations (e.g., Sigmoid followed by Log followed by NLL), intermediate probabilities could overflow or saturate to exactly `0.0` or `1.0`, leading to `NaN` gradients. Fused operations leverage numerical stablization techniques (like max-shifting in Log-Sum-Exp) inside a single forward/backward pass.
+Internal mechanisms should be visible.
 
-## 4. In-Place Parameter Mutation
+Users should understand
 
-During parameter updates, optimizers mutate the private `._data` array directly (e.g., `param._data -= lr * param.grad.data`).
+- where graphs are built
+- how gradients flow
+- why tensors store specific metadata
 
-* **Reasoning:** Mutating the underlying NumPy data avoids reallocating `Tensor` objects or breaking object references held by `Module` classes, ensuring parameter changes propagate seamlessly across layers.
+rather than relying on hidden magic.
 
-## 5. Topological Pruning
+---
 
-The `AutogradEngine` prunes subgraphs that do not require gradients.
+## 3. Composition over Duplication
 
-* **Reasoning:** Intermediate tensors created from operations where all inputs have `requires_grad=False` will not have a `GraphNode` generated. This prevents the topological sorter from visiting dead branches, speeding up forward passes and saving immense memory.
+Higher-level abstractions should reuse lower-level primitives.
+
+For example,
+
+```python
+class MSELoss(Module):
+
+    def forward(self, prediction, target):
+        return ((prediction - target) ** 2).mean()
+```
+
+instead of implementing a completely new backward pass.
+
+Autograd already knows how to differentiate subtraction, power and mean.
+
+Gradience should reuse those primitives whenever possible.
+
+---
+
+## 4. Modularity
+
+Every component should have exactly one responsibility.
+
+Tensor
+
+- numerical storage
+- gradient storage
+- user API
+
+Function
+
+- differentiable operations
+
+GraphNode
+
+- graph representation
+
+AutogradEngine
+
+- reverse traversal
+
+Module
+
+- neural network abstraction
+
+Optimizer
+
+- parameter updates
+
+---
+
+## 5. Educational First
+
+Every abstraction should answer three questions.
+
+- Why does this exist?
+- What problem does it solve?
+- Why was it designed this way?
+
+---
+
+# Design Principles
+
+Every contribution to Gradience should satisfy at least one of the following.
+
+- Makes the framework easier to understand.
+- Improves modularity.
+- Reduces duplicated logic.
+- Improves mathematical correctness.
+- Improves documentation.
+- Improves testing.
+- Improves extensibility.
+
+Features that violate these principles should be reconsidered.
+
+---
+
+# Design Decisions
+
+## Dynamic Computation Graphs
+
+Gradience follows PyTorch's eager execution model.
+
+Graphs are built during execution rather than compiled beforehand.
+
+Advantages
+
+- easier debugging
+- intuitive control flow
+- simpler implementation
+
+---
+
+## Reverse-Mode Automatic Differentiation
+
+Neural networks typically have
+
+many parameters
+
+↓
+
+single scalar loss
+
+Reverse-mode differentiation is therefore the most efficient approach.
+
+---
+
+## Broadcasting
+
+Forward broadcasting follows NumPy semantics.
+
+Backward broadcasting is handled through a centralized
+
+```
+unbroadcast()
+```
+
+helper.
+
+This avoids duplicating broadcasting logic inside every operation.
+
+---
+
+## Weight Initialization
+
+Initialization is intentionally separated from layers.
+
+```
+Layer
+
+↓
+
+Initializer
+
+↓
+
+Parameter
+```
+
+Current initializers
+
+- Constant
+- Zeros
+- Ones
+- Uniform
+- Normal
+- Xavier
+- He
+
+---
+
+## Composition
+
+Higher-level abstractions should be composed from existing primitives.
+
+Examples
+
+Losses
+
+↓
+
+Tensor Operations
+
+↓
+
+Autograd
+
+rather than introducing unnecessary differentiation logic.
+
+---
+
+# Current Capabilities
+
+## Core
+
+- Tensor
+- Reverse-mode Automatic Differentiation
+- Broadcasting
+- Gradient Accumulation
+- Dynamic Computation Graph
+- Gradcheck
+
+---
+
+## Tensor Operations
+
+- Arithmetic
+- Matrix Multiplication
+- Unary Operations
+- Reductions
+- Activations
+
+---
+
+## Neural Network API
+
+- Module
+- Parameter
+- Linear
+- Sequential
+- Activations
+- Initializers
+- Losses
+
+---
+
+## Optimization
+
+- SGD
+- Adam
+- AdamW
+- RMSProp
+- Adagrad
+- Momentum SGD
+
+---
+
+## Training Examples
+
+- Linear Regression
+- XOR
+- MNIST
+
+---
+
+## Engineering
+
+- Comprehensive Unit Tests
+- Integration Tests
+- Benchmarks
+- Documentation
+- Public API

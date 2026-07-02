@@ -1,8 +1,33 @@
 # Contributing to Gradience
 
-Contributions to Gradience are welcome! To maintain software quality and mathematical correctness, please adhere to the following guidelines.
+> **How to contribute to our framework and educational ecosystem.**
 
 ---
+
+# Contribution Philosophy
+
+Every contribution should improve at least one of
+
+- understanding
+- modularity
+- correctness
+- documentation
+- testing
+- extensibility
+
+New features should
+
+- include tests
+- include documentation
+- preserve architectural simplicity
+
+Large features should be introduced incrementally rather than as monolithic additions.
+
+---
+
+# Contribution Guidelines
+
+To maintain software quality and mathematical correctness, please adhere to the following guidelines.
 
 ## 1. Code Style & Architecture
 * Follow PEP 8 guidelines.
