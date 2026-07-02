@@ -114,7 +114,7 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ### Neural Network API (`gradience.nn`)
 * **Modules & Parameters**: Abstract base classes for building stateful models.
-* **Layers**: `Linear` (Dense).
+* **Layers**: `Linear` (Dense), `Dropout`, `BatchNorm1d`, `LayerNorm`.
 * **Containers**: `Sequential` models.
 * **Activations**: `ReLU`, `Sigmoid`, `Tanh`.
 * **Loss Functions**: `MSELoss`, `L1Loss`, `CrossEntropyLoss` (Fused), `BCEWithLogitsLoss` (Fused).
@@ -131,9 +131,8 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ## Upcoming Features (v0.2.0+)
 * Learning rate schedulers
-* Dropout layers
-* Batch Normalization
 * Convolutional Layers (Conv2D)
+* Recurrent Neural Networks (RNN/LSTM)
 
 ---
 

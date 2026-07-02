@@ -21,14 +21,14 @@ class Function:
             grad_fn=None
         )
         
-        node = GraphNode(
-            operation=cls,
-            parents=inputs,
-            context=ctx,
-            output=output
-        )
-        
-        output._grad_fn = node
+        if requires_grad:
+            node = GraphNode(
+                operation=cls,
+                parents=inputs,
+                context=ctx,
+                output=output
+            )
+            output._grad_fn = node
         
         return output
         

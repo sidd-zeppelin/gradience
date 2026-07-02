@@ -105,6 +105,18 @@ A fully-connected dense layer. Applies a linear transformation $y = xW^T + b$.
     *   `.weight` (`Parameter`): The learnable weight matrix of shape `(out_features, in_features)`.
     *   `.bias` (`Optional[Parameter]`): The learnable bias vector of shape `(out_features,)`.
 
+### `Dropout(Module)`
+During training, randomly zeroes some elements of the input tensor with probability `p` using samples from a Bernoulli distribution. Scales remaining elements by $1/(1-p)$ to maintain expected value.
+*   **Constructor:** `Dropout(p: float = 0.5)`
+
+### `BatchNorm1d(Module)`
+Applies Batch Normalization over a 2D input. Maintains running estimates of mean and variance during training which are locked and utilized during evaluation.
+*   **Constructor:** `BatchNorm1d(num_features: int, eps: float = 1e-5, momentum: float = 0.1)`
+
+### `LayerNorm(Module)`
+Applies Layer Normalization over a mini-batch of inputs. Computes the mean and variance across the specified `normalized_shape` independently for each batch element.
+*   **Constructor:** `LayerNorm(normalized_shape: Union[int, tuple], eps: float = 1e-5)`
+
 ### `Sequential(Module)`
 A sequential container for chaining modules.
 *   **Constructor:** `Sequential(*_modules: Module)`

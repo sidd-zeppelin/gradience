@@ -1,6 +1,9 @@
 from gradience.nn.parameter import Parameter
 from gradience.nn.module import Module
 from gradience.nn.layers.linear import Linear
+from gradience.nn.layers.dropout import Dropout
+from gradience.nn.layers.batchnorm import BatchNorm1d
+from gradience.nn.layers.layernorm import LayerNorm
 from gradience.nn.containers.sequential import Sequential
 from gradience.nn.activations.relu import ReLU
 from gradience.nn.activations.sigmoid import Sigmoid
@@ -13,7 +16,10 @@ from gradience.nn.losses.bce_with_logits import BCEWithLogitsLoss
 __all__ = [
     'Parameter', 
     'Module', 
-    'Linear', 
+    'Linear',
+    'Dropout',
+    'BatchNorm1d',
+    'LayerNorm',
     'Sequential', 
     'ReLU', 
     'Sigmoid', 

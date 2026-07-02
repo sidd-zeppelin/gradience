@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Implemented Neural Network Layers: `Dropout`, `BatchNorm1d`, and `LayerNorm`.
 - Implemented advanced optimization algorithms: `Adam`, `AdamW`, `RMSprop`, and `Adagrad`.
 - Enhanced `SGD` with support for `momentum`, `nesterov` acceleration, and `weight_decay`.
 - Implemented robust loss functions: `CrossEntropyLoss` and `BCEWithLogitsLoss` using numerically stable fused `ops`, alongside standard `L1Loss`.
 - Added the `Abs` primitive operation and `Tensor.abs()` method.
+
+### Fixed
+- Fixed a critical topological sort bug in the `AutogradEngine` where `GraphNode` objects were unconditionally instantiated for intermediate tensors even when `requires_grad=False`.
 
 ## [0.1.0] - 2026-07-03
 ### Added
