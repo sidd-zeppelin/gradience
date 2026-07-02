@@ -62,6 +62,13 @@ The goal is not to compete with production frameworks—it's to understand them.
 * Numerical gradient checking
 * Multi-input gradient verification
 
+### Neural Network API
+
+* `Module` base class for stateful tracking
+* `Parameter` abstractions for dynamic weight discovery
+* `Linear` (Dense) layers with custom initializers
+* `Sequential` containers with iterable Python indexing
+
 ---
 
 ## Project Architecture
@@ -74,6 +81,16 @@ gradience/
 │   ├── context.py
 │   ├── function.py
 │   └── graph_node.py
+│
+├── nn/
+│   ├── activations/
+│   ├── containers/
+│   ├── layers/
+│   │   └── linear.py
+│   ├── losses/
+│   ├── init.py
+│   ├── module.py
+│   └── parameter.py
 │
 ├── ops/
 │   ├── add.py
@@ -98,12 +115,12 @@ gradience/
 │   ├── sigmoid.py
 │   └── tanh.py
 │
-├── testing/
-│   └── gradcheck.py
+├── optim/
 │
 ├── tensor.py
 │
-└── ...
+└── testing/
+    └── gradcheck.py
 ```
 
 The project is intentionally modular.
@@ -165,18 +182,18 @@ print(y.grad)   # 2.0
 * [x] Activations (ReLU, Sigmoid, Tanh)
 * [x] Parameter abstraction
 * [x] Base Module class
-* [ ] Linear/Dense Layer
-* [ ] Sequential container
-* [ ] Activation functions
-* [ ] Loss functions
+* [x] Linear/Dense Layer
+* [x] Sequential container
+* [x] Activation functions
+* [x] Loss functions
 
 ### Phase 4 — Training
 
-* [ ] Optimizers
-* [ ] SGD
+* [x] Optimizers
+* [x] SGD
 * [ ] Adam
 * [ ] Learning rate schedulers
-* [ ] End-to-end neural network training
+* [x] End-to-end neural network training
 
 ---
 
@@ -259,7 +276,8 @@ We have a complete, in-depth guide on how Gradience implements deep learning fro
 6. [Neural Networks](docs/06_Neural_Networks.md)
 7. [Code Execution & Broadcasting](docs/08_Under_The_Hood_Code_Execution.md)
 8. [Testing & Gradcheck](docs/09_Testing_and_Gradcheck.md)
-9. [API Reference](docs/07_API_Reference.md)
+9. [Experiments and Validation](docs/10_Experiments_and_Validation.md)
+10. [API Reference](docs/07_API_Reference.md)
 
 ---
 

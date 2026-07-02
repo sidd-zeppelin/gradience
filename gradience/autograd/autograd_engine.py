@@ -40,7 +40,6 @@ class AutogradEngine:
                 tensor.grad
             )
 
-            
             for parent, grad in zip(node.parents, grads):
                 if not parent.requires_grad:
                     continue
