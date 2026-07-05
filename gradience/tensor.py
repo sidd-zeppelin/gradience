@@ -97,6 +97,10 @@ class Tensor:
     def backward(self):
         AutogradEngine.backward(self)
 
+    def visualize(self):
+        from gradience.visualization import visualize
+        return visualize(self)
+
     def item(self):
         return self._data.item()
 

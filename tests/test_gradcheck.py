@@ -1,5 +1,4 @@
-from gradience.testing.gradcheck import (numerical_gradient,
-                                         gradcheck)
+from gradience.testing import numerical_gradient, gradcheck
 from gradience.tensor import Tensor
 
 def square(x):
