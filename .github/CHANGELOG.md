@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-07-06
+### Added
+- Implemented decoupled **Computational Graph Visualization** subsystem (`gradience.visualization`) using a bipartite generic graph representation (`GraphNode`, `GraphEdge`, `ComputationGraph`) and a post-order style DFS autograd graph extractor (`GraphExtractor`).
+- Created a `GraphRenderer` that constructs visual diagrams using Graphviz `Digraph` rendering, modeling operations as boxes and tensors as ellipses with shape/type metadata and scalar previews.
+- Integrated `Tensor.visualize()` as a main public method on the `Tensor` class.
+- Authored a comprehensive visualization guide (`docs/visualization.md`) outlining architecture design decisions, algorithms, and future extensibility.
+- Added comprehensive unit and integration tests in `tests/test_visualization.py`.
+
+### Changed
+- Exposed submodules `nn`, `optim`, `testing`, and `visualization` directly under the main `gradience` namespace in `gradience/__init__.py`.
+- Cleaned up subpackage public APIs by populating empty `__init__.py` files in subdirectories (e.g. `nn/activations/`, `nn/layers/`, `nn/losses/`, `nn/containers/`, `testing/`) with clean imports and explicit `__all__` lists.
+
 ## [1.0.0] - 2026-07-03
 ### Added
 - Implemented Neural Network Layers: `Dropout`, `BatchNorm1d`, and `LayerNorm`.

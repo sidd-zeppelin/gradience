@@ -127,6 +127,11 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 * **RMSprop**: Root Mean Square Propagation.
 * **Adagrad**: Adaptive Gradients.
 
+### Computational Graph Visualization (`gradience.visualization`)
+* **Dynamic Graph Extraction**: Recursively traverses the autograd graph from any tensor.
+* **Decoupled Architecture**: Strictly separates the generic graph structure representation from the rendering layer.
+* **Graphviz Rendering**: Renders the computational graph as clean diagrams (tensors as ellipses, operations as boxes).
+
 ---
 
 ## Upcoming Features (v0.2.0+)
@@ -188,6 +193,7 @@ Explore our structured documentation to understand the framework's design, inter
 * **[Design Philosophy & Decisions](docs/DESIGN.md)**: Architectural choices, trade-offs, and stability decisions.
 * **[Future Roadmap](docs/ROADMAP.md)**: Planned phases, algorithms, and features.
 * **[Contributing Guidelines](docs/CONTRIBUTING.md)**: Guidelines for adding operations, layers, and writing tests.
+* **[Graph Visualization Guide](docs/visualization.md)**: Conceptual guide and architecture overview of the graph extraction and visualization subsystem.
 
 ### Subsystem Internals
 * **[Tensor Engine](docs/internals/tensor.md)**: Smart containers, properties, and operator overloading.
