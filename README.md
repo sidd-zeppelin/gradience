@@ -136,7 +136,6 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ## Upcoming Features (v0.2.0+)
 * Learning rate schedulers
-* Convolutional Layers (Conv2D)
 * Recurrent Neural Networks (RNN/LSTM)
 
 ---
@@ -193,6 +192,7 @@ Explore our structured documentation to understand the framework's design, inter
 * **[Design Philosophy & Decisions](docs/DESIGN.md)**: Architectural choices, trade-offs, and stability decisions.
 * **[Contributing Guidelines](docs/CONTRIBUTING.md)**: Guidelines for adding operations, layers, and writing tests.
 * **[Graph Visualization Guide](docs/visualization.md)**: Conceptual guide and architecture overview of the graph extraction and visualization subsystem.
+* **[Convolution Guide](docs/convolution.md)**: Conceptual guide and architecture overview of the convolution utilities, Conv2D operations, and neural network module.
 
 ### Subsystem Internals
 * **[Tensor Engine](docs/internals/tensor.md)**: Smart containers, properties, and operator overloading.
