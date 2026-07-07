@@ -28,7 +28,7 @@ We have reorganized our guides into high-level specs, internal deep-dives, and h
 * **[Architecture Guide](ARCHITECTURE.md)**: Conceptual diagram and overview of the pipeline layers.
 * **[Design Decisions](DESIGN.md)**: Design trade-offs (e.g. why we choose NumPy, custom functions vs. fused operations).
 * **[Contributing Guidelines](CONTRIBUTING.md)**: Quick-start specs for implementing new mathematical operations and NN layers.
-* **[Convolution Guide](convolution.md)**: Conceptual guide and overview of the Conv2D utilities, ops, and NN module.
+* **[Changelog](CHANGELOG.md)**: Detailed log of all features, improvements, and bug fixes.
 
 ### Subsystem Internals (Deep Dives)
 * **[Tensor Engine](internals/tensor.md)**: Anatomy of our wrapper, fields (`_data`, `requires_grad`, etc.), and dunder overloads.
