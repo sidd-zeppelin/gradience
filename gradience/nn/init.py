@@ -7,13 +7,18 @@ def _fill(parameter, values):
 def _calculate_fan(parameter):
     shape = parameter.shape
     
-    if len(shape) > 2:
+    if len(shape) < 2:
         raise ValueError(
             "Fan in and fan out require a tensor with at least 2 dimensions."
         )
     
-    fan_in = shape[0]
-    fan_out = shape[1]
+    if len(shape) == 2:
+        fan_in = shape[0]
+        fan_out = shape[1]
+    else:
+        receptive_field_size = np.prod(shape[2:])
+        fan_in = shape[1] * receptive_field_size
+        fan_out = shape[0] * receptive_field_size
     
     return fan_in, fan_out
 

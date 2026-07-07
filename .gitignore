@@ -24,3 +24,6 @@ dist/
 
 # Virtual environments
 .venv
+
+# Personal notes
+personal_notes/

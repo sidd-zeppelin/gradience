@@ -114,7 +114,7 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ### Neural Network API (`gradience.nn`)
 * **Modules & Parameters**: Abstract base classes for building stateful models.
-* **Layers**: `Linear` (Dense), `Dropout`, `BatchNorm1d`, `LayerNorm`.
+* **Layers**: `Linear` (Dense), `Conv2D`, `Dropout`, `BatchNorm1d`, `LayerNorm`.
 * **Containers**: `Sequential` models.
 * **Activations**: `ReLU`, `Sigmoid`, `Tanh`.
 * **Loss Functions**: `MSELoss`, `L1Loss`, `CrossEntropyLoss` (Fused), `BCEWithLogitsLoss` (Fused).
@@ -191,7 +191,6 @@ Explore our structured documentation to understand the framework's design, inter
 ### High-Level Documentation
 * **[Architecture Guide](docs/ARCHITECTURE.md)**: Conceptual diagram and explanation of the core layers.
 * **[Design Philosophy & Decisions](docs/DESIGN.md)**: Architectural choices, trade-offs, and stability decisions.
-* **[Future Roadmap](docs/ROADMAP.md)**: Planned phases, algorithms, and features.
 * **[Contributing Guidelines](docs/CONTRIBUTING.md)**: Guidelines for adding operations, layers, and writing tests.
 * **[Graph Visualization Guide](docs/visualization.md)**: Conceptual guide and architecture overview of the graph extraction and visualization subsystem.
 
@@ -205,6 +204,12 @@ Explore our structured documentation to understand the framework's design, inter
 ### Step-by-Step Tutorials
 * **[Tutorial 1: Training Your First Model](docs/tutorials/tutorial_1_linear_regression.md)**: Build a simple linear regression model and write a custom training loop.
 * **[Tutorial 2: Building Deep Neural Networks](docs/tutorials/tutorial_2_deep_learning.md)**: Solve the non-linear XOR classification boundary using multi-layer perceptrons (MLPs).
+
+### Example Notebooks
+* **[Graph Visualization Demo](examples/visualize_graph.ipynb)**: Walkthrough of computation graph extraction, rendering, and file export for simple and complex mathematical functions.
+* **[Linear Regression Demo](examples/linear_regression.ipynb)**: Training a simple linear regression model to fit synthetic 1D data.
+* **[XOR Classification Demo](examples/train_xor.ipynb)**: Solving the classic non-linear XOR classification problem with a multi-layer perceptron (MLP).
+* **[MNIST Classification Demo](examples/train_mnist.ipynb)**: Training a two-layer MLP on the MNIST handwritten digit database, showing step-for-step correctness compared with PyTorch.
 
 ### API Reference
 * **[API Reference](docs/API_Reference.md)**: Full signatures and parameters of all operators, layers, and optimizers.

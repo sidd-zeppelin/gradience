@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-07-07
+### Added
+- Implemented **2D Convolution Support** (`Conv2D`) using a naïve first-principles loop-based algorithm optimizing for correctness and educational value.
+- Added modular convolution utilities inside `gradience/utils/convolution.py` for spatial padding, output shape calculations, and channel-wise patch extraction.
+- Created `Conv2DOp` subclassing `Function` under `gradience/ops/conv2d.py` implementing naive convolution forward pass and backward analytical gradient accumulation for input tensors, weights, and biases.
+- Implemented stateful `Conv2D(Module)` under `gradience/nn/convolution/conv2d.py` supporting PyTorch-like interfaces, He parameter initialization, and bias toggle.
+- Authored a comprehensive convolution architectural documentation inside `docs/convolution.md`.
+- Added exhaustive PyTorch-matching verification tests under `tests/test_convolution.py` to assert correct gradient behavior on multiple spatial sizes, strides, paddings, and filter groups.
+
+### Changed
+- Refactored parameter `_calculate_fan` in `gradience/nn/init.py` to support multidimensional parameter tensors (4D convolution kernels) during initialization.
+- Integrated and exposed `Conv2D` under the main `gradience.nn` package interface.
+
 ## [1.1.0] - 2026-07-06
 ### Added
 - Implemented decoupled **Computational Graph Visualization** subsystem (`gradience.visualization`) using a bipartite generic graph representation (`GraphNode`, `GraphEdge`, `ComputationGraph`) and a post-order style DFS autograd graph extractor (`GraphExtractor`).
@@ -12,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integrated `Tensor.visualize()` as a main public method on the `Tensor` class.
 - Authored a comprehensive visualization guide (`docs/visualization.md`) outlining architecture design decisions, algorithms, and future extensibility.
 - Added comprehensive unit and integration tests in `tests/test_visualization.py`.
+- Created an interactive Jupyter Notebook example (`examples/visualize_graph.ipynb`) demonstrating simple and complex mathematical function visualizations (including division, exponentials, roots, branching, and shared parameters).
 
 ### Changed
 - Exposed submodules `nn`, `optim`, `testing`, and `visualization` directly under the main `gradience` namespace in `gradience/__init__.py`.

@@ -27,7 +27,6 @@ We have reorganized our guides into high-level specs, internal deep-dives, and h
 ### High-Level Documentation
 * **[Architecture Guide](ARCHITECTURE.md)**: Conceptual diagram and overview of the pipeline layers.
 * **[Design Decisions](DESIGN.md)**: Design trade-offs (e.g. why we choose NumPy, custom functions vs. fused operations).
-* **[Future Roadmap](ROADMAP.md)**: Outline of Phase 5 (CNNs/RNNs), Phase 6 (Utilities), and Phase 7 (Optimizations).
 * **[Contributing Guidelines](CONTRIBUTING.md)**: Quick-start specs for implementing new mathematical operations and NN layers.
 
 ### Subsystem Internals (Deep Dives)
