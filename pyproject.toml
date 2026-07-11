@@ -1,6 +1,6 @@
 [project]
 name = "gradience"
-version = "1.2.0"
+version = "2.0.0"
 description = "An open source project aimed to create an autograd engine later extended to a deep learning framework. "
 readme = "README.md"
 requires-python = ">=3.13"
@@ -11,6 +11,7 @@ dependencies = [
     "numpy>=2.5.0",
     "pytest>=9.1.1",
     "torch>=2.12.1",
+    "torchvision>=0.27.1",
 ]
 license = "Apache-2.0"
 

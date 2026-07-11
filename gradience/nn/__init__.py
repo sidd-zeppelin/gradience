@@ -13,6 +13,9 @@ from gradience.nn.losses.l1 import L1Loss
 from gradience.nn.losses.cross_entropy import CrossEntropyLoss
 from gradience.nn.losses.bce_with_logits import BCEWithLogitsLoss
 from gradience.nn.convolution.conv2d import Conv2D
+from gradience.nn.layers.pooling import MaxPool2D, AdaptiveAvgPool2D
+from gradience.nn.models.alexnet import AlexNet, OriginalAlexNet
+from gradience.nn.models.lenet import LeNet5
 
 __all__ = [
     'Parameter', 
@@ -29,5 +32,10 @@ __all__ = [
     'L1Loss',
     'CrossEntropyLoss',
     'BCEWithLogitsLoss',
-    'Conv2D'
+    'Conv2D',
+    'MaxPool2D',
+    'AdaptiveAvgPool2D',
+    'AlexNet',
+    'OriginalAlexNet',
+    'LeNet5'
 ]

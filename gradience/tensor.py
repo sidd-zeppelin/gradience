@@ -248,3 +248,22 @@ class Tensor:
     def abs(self):
         from gradience.ops.abs import Abs
         return Abs.apply(self)
+
+    def reshape(self, *shape):
+        if len(shape) == 1 and isinstance(shape[0], (list, tuple)):
+            shape = shape[0]
+        from gradience.ops.reshape import ReshapeOp
+        return ReshapeOp.apply(self, shape=shape)
+
+    def flatten(self, start_dim=1):
+        shape = self.shape
+        if start_dim < 0:
+            start_dim = len(shape) + start_dim
+        flat_dim = int(np.prod(shape[start_dim:]))
+        new_shape = shape[:start_dim] + (flat_dim,)
+        return self.reshape(new_shape)
+
+
+def concat(tensors, axis=1):
+    from gradience.ops.concat import ConcatOp
+    return ConcatOp.apply(*tensors, axis=axis)

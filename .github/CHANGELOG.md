@@ -5,16 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2026-07-07
+## [2.0.0] - 2026-07-11
 ### Added
+- Created **7-Chapter First-Principles Deep Learning Curriculum** as a comprehensive textbook under `docs/chapters/` following a 13-section roadmap layout.
+- Implemented **Original Split-GPU AlexNet Architecture** (`OriginalAlexNet`) to model Krizhevsky's historical 2012 dual-stream routing design from first principles.
+- Created `ConcatOp` autograd function in `gradience/ops/concat.py` supporting backpropagation of concatenated feature maps.
+- Exposed a public `concat()` tensor helper in the main namespace.
+- Added a comprehensive Jupyter Notebook demo (`examples/train_alexnet_parallel.ipynb`) comparing training convergence, logs, gradients, and loss plots of `OriginalAlexNet` against PyTorch GPU/CUDA on CIFAR-10.
+- Implemented **2D Pooling Support** (`MaxPool2D`, `AdaptiveAvgPool2D`) with corresponding autograd backward operations.
+- Added **Reshaping & Flattening Operations** (`reshape`, `flatten`) to allow flexible tensor restructuring.
+- Added standard single-stream **AlexNet Architecture** model to verify complex composition of convolution, pooling, and linear layers.
 - Implemented **2D Convolution Support** (`Conv2D`) using a naïve first-principles loop-based algorithm optimizing for correctness and educational value.
-- Added modular convolution utilities inside `gradience/utils/convolution.py` for spatial padding, output shape calculations, and channel-wise patch extraction.
-- Created `Conv2DOp` subclassing `Function` under `gradience/ops/conv2d.py` implementing naive convolution forward pass and backward analytical gradient accumulation for input tensors, weights, and biases.
-- Implemented stateful `Conv2D(Module)` under `gradience/nn/convolution/conv2d.py` supporting PyTorch-like interfaces, He parameter initialization, and bias toggle.
-- Authored a comprehensive convolution architectural documentation inside `docs/convolution.md`.
-- Added exhaustive PyTorch-matching verification tests under `tests/test_convolution.py` to assert correct gradient behavior on multiple spatial sizes, strides, paddings, and filter groups.
-
-### Changed
+- Added verification test suite for pooling, reshaping, convolution, and AlexNet models.
 - Refactored parameter `_calculate_fan` in `gradience/nn/init.py` to support multidimensional parameter tensors (4D convolution kernels) during initialization.
 - Integrated and exposed `Conv2D` under the main `gradience.nn` package interface.
 

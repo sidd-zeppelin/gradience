@@ -1,47 +1,33 @@
-# Gradience Under the Hood: An Introduction
+# Gradience Deep Learning Curriculum & Roadmap
 
-Welcome! If you want to understand how neural networks and deep learning actually work behind the scenes, you are in the right place. We are going to break down the complex math and computer science into simple level ideas.
+Gradience is an educational deep learning framework built from first principles. Its goal is to teach deep learning concepts by implementing them from scratch.
 
-## Why Gradience?
+This documentation serves as a complete textbook curriculum. It maps theoretical concepts directly to their practical implementation in Python.
 
-Gradience is a deep learning framework built entirely from scratch. Its purpose is educational: to help you understand exactly what happens inside a neural network without being overwhelmed by millions of lines of complex code.
+## The Learning Roadmap
 
-## The Perfect Learning Tool
+The curriculum is structured into the following sequential chapters. Each chapter motivates the necessity of its abstractions, derives the underlying mathematics, and guides you through the first-principles implementation.
 
-Because Gradience is tiny and readable, you can open any file and immediately see the math in action. It strips away the unnecessary complexity and focuses entirely on the core concepts that make Artificial Intelligence possible. By reading the code in Gradience, you will learn exactly how deep learning works from first principles.
+* **[Chapter 1: Introduction to Deep Learning](chapters/chapter_1_introduction.md)**: Conceptual foundations, biological and artificial neurons, perceptrons, multi-layer perceptrons, and the universal approximation theorem.
+* **[Chapter 2: Building the Foundations](chapters/chapter_2_foundations.md)**: Tensors, computational graphs, backpropagation, and reverse-mode automatic differentiation (autograd).
+* **[Chapter 3: Neural Networks](chapters/chapter_3_neural_networks.md)**: Linear layers, activation functions (ReLU, Sigmoid, Tanh), loss functions (MSE, BCE, Cross-Entropy), and multi-layer perceptrons (MLPs).
+* **[Chapter 4: Optimization](chapters/chapter_4_optimization.md)**: Gradient descent variants, Stochastic Gradient Descent (SGD), momentum, Nesterov momentum, AdaGrad, RMSprop, Adam, AdamW, and learning rate scheduling.
+* **[Chapter 5: Training Neural Networks](chapters/chapter_5_training.md)**: Weight initialization (Xavier, Kaiming/He), normalization layers (BatchNorm, LayerNorm), regularization (Dropout), datasets, dataloaders, and the training pipeline.
+* **[Chapter 6: Computer Vision Foundations](chapters/chapter_6_computer_vision.md)**: Image representation as tensors, 2D spatial convolution math, padding, stride, and pooling (MaxPool2D, AdaptiveAvgPool2D).
+* **[Chapter 7: CNN Architectures](chapters/chapter_7_cnn_architectures.md)**: Reconstructing classic networks, LeNet-5 for MNIST, and original split-device dual-stream AlexNet (channel concatenation via ConcatOp).
 
-## The Core Concept: Automatic Differentiation
+## Curriculum Philosophy
 
-The secret to all modern Artificial Intelligence is **Calculus**. 
+1. **Abstractions must be earned**: No layer, operation, or abstraction is introduced without explaining the limitation of prior methods first.
+2. **First-principles derivation**: Every algorithm, forward pass, and gradient update is derived algebraically.
+3. **From math to code**: Mathematical variables map directly to code arrays, shape dimensions, and broadcasting mechanisms.
+4. **Nothing is a black box**: The code is completely self-contained within this repository and has zero external machine learning dependencies.
 
-Specifically, AI learns by looking at how wrong its predictions are, and then using a derivative to figure out which direction to adjust its numbers. 
+## Advanced Roadmap Path
 
-If you have a function `y = 3 * x`, the derivative tells you that if you increase `x` by 1, `y` will increase by 3. In AI, we have functions with millions of `x` variables. We need a way to calculate the derivative for every single one of them automatically.
-
-This process is called **Automatic Differentiation** (or Autograd for short). Gradience uses a specific type called "Reverse Mode Automatic Differentiation". 
-
-## How This Documentation is Structured
-
-We have reorganized our guides into high-level specs, internal deep-dives, and hands-on tutorials:
-
-### High-Level Documentation
-* **[Architecture Guide](ARCHITECTURE.md)**: Conceptual diagram and overview of the pipeline layers.
-* **[Design Decisions](DESIGN.md)**: Design trade-offs (e.g. why we choose NumPy, custom functions vs. fused operations).
-* **[Contributing Guidelines](CONTRIBUTING.md)**: Quick-start specs for implementing new mathematical operations and NN layers.
-* **[Changelog](CHANGELOG.md)**: Detailed log of all features, improvements, and bug fixes.
-
-### Subsystem Internals (Deep Dives)
-* **[Tensor Engine](internals/tensor.md)**: Anatomy of our wrapper, fields (`_data`, `requires_grad`, etc.), and dunder overloads.
-* **[Autograd & Computational Graphs](internals/autograd.md)**: Dynamic tape construction, reverse topological sorting, and gradient accumulation.
-* **[Module Abstractions](internals/module.md)**: Reflective parameter registration, Sequential layers, and train/eval toggles.
-* **[Broadcasting Math](internals/broadcasting.md)**: Detailed trace of forward/backward operations and gradient shape reconciliation.
-* **[Numerical testing & gradcheck](internals/testing.md)**: How numerical finite difference testing is used to verify analytical gradients.
-
-### Step-by-Step Tutorials
-* **[Tutorial 1: Training Your First Model](tutorials/tutorial_1_linear_regression.md)**: Step-by-step implementation of a linear regression training loop.
-* **[Tutorial 2: Building Deep Neural Networks](tutorials/tutorial_2_deep_learning.md)**: Stack activation layers and use the Adam optimizer to solve the XOR classification boundary.
-
-### API Cheatsheet
-* **[API Reference](API_Reference.md)**: Full signatures and parameters of all operators, layers, and optimizers.
-
-Take your time. Read through these pages, and open the code files in the `gradience/` folder as you go. You will see that AI is just a bunch of simple math concepts chained together!
+Future additions to the roadmap include:
+* Phase 8: Image Segmentation (U-Net, DeepLab)
+* Phase 9: Attention Mechanisms
+* Phase 10: Transformers (Vision Transformers)
+* Phase 11: Generative Models (VAEs, GANs)
+* Phase 12: Diffusion Models (DDPM, Score Matching, Stable Diffusion)

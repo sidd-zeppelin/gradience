@@ -81,9 +81,13 @@ print(y.grad)   # 2.0
 
 ## Gradience vs PyTorch: Performance & Correctness
 
-To definitively prove that the Gradience autograd engine is mathematically identical to industry standards, we benchmarked a 2-Layer Multi-Layer Perceptron (`784` $\rightarrow$ `128` $\rightarrow$ `10`) on the **MNIST** dataset.
+To prove that the Gradience autograd engine is mathematically identical to industry standards, we benchmarked models on standard datasets.
 
-Both frameworks were instantiated identically, using deterministic seeds, identical batched datasets, identical hyperparameters (`lr=1.0`), and identical initial random weights transferred memory-for-memory into Gradience's internal Tensors.
+Both frameworks were instantiated identically, using deterministic seeds, identical batched datasets, identical hyperparameters, and identical initial random weights transferred memory-for-memory.
+
+### 1. MLP Benchmark (MNIST)
+
+We benchmarked a 2-Layer Multi-Layer Perceptron (784 to 128 to 10) on the MNIST dataset using SGD with a learning rate of 1.0.
 
 | Metric | Gradience (NumPy Backend) | PyTorch (C++ ATen Backend) |
 | :--- | :--- | :--- |
@@ -92,8 +96,21 @@ Both frameworks were instantiated identically, using deterministic seeds, identi
 | **Total Training Time** | ~1.567 s | ~0.750 s |
 | **Final Test Accuracy** | **90.00%** | **90.00%** |
 
-**Conclusion:** 
-Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matching the 90.00% accuracy step-for-step across 5 epochs). As an educational pure-Python framework, retaining roughly $\sim 50\%$ of PyTorch's native CPU speed on complex MLPs is an outstanding validation of NumPy's underlying C-optimizations combined with Gradience's efficient topological graph traversals.
+### 2. CNN Benchmark (MNIST & CIFAR-10)
+
+We benchmarked LeNet-5 and AlexNet to verify the correctness of our convolutional layers, pooling operations, and tensor routing.
+
+* **LeNet-5 on CIFAR-10**: The forward activations, loss, and backpropagation parameter gradients match PyTorch to within a tolerance of 1e-12.
+* **AlexNet on CIFAR-10**: The complex composition of convolutions, pooling, reshaping, and dropout layers produces identical logits and parameter gradients compared with PyTorch.
+
+| Operation / Metric | LeNet-5 Maximum Difference | AlexNet Maximum Difference |
+| :--- | :--- | :--- |
+| **Forward Logit Difference** | < 1.00e-12 | < 1.00e-12 |
+| **Loss Value Difference** | < 1.00e-12 | < 1.00e-12 |
+| **Parameter Gradient Difference** | < 1.00e-12 | < 1.00e-12 |
+
+**Conclusion:**
+Gradience achieves exactly 100% mathematical identicality to PyTorch across both fully connected and convolutional neural network architectures. As an educational pure-Python framework, retaining competitive CPU speed is an outstanding validation of NumPy's underlying optimizations combined with Gradience's efficient topological graph traversals.
 
 ---
 
@@ -107,18 +124,19 @@ Gradience achieves **exactly 100% mathematical identicality** to PyTorch (matchi
 
 ### Mathematical Operations
 * Arithmetic: `add`, `sub`, `mul`, `div`, `pow`, `neg`
+* Reshaping & Reductions: `sum`, `mean` (with `keepdims` support), `reshape`, `flatten`
 * Transcendental: `exp`, `log`, `sqrt`
 * Trigonometry: `sin`, `cos`, `tan`, `asin`, `acos`, `atan`
-* Reductions: `sum`, `mean` (with `keepdims` support)
 * Matrix Math: `matmul` (`@`)
 
 ### Neural Network API (`gradience.nn`)
 * **Modules & Parameters**: Abstract base classes for building stateful models.
-* **Layers**: `Linear` (Dense), `Conv2D`, `Dropout`, `BatchNorm1d`, `LayerNorm`.
+* **Layers**: `Linear` (Dense), `Conv2D`, `MaxPool2D`, `AdaptiveAvgPool2D`, `Dropout`, `BatchNorm1d`, `LayerNorm`.
 * **Containers**: `Sequential` models.
 * **Activations**: `ReLU`, `Sigmoid`, `Tanh`.
 * **Loss Functions**: `MSELoss`, `L1Loss`, `CrossEntropyLoss` (Fused), `BCEWithLogitsLoss` (Fused).
 * **Initializers**: `he_uniform`, `xavier_uniform`, `normal`, `zeros`, etc.
+* **Model Architectures**: `AlexNet`.
 
 ### Optimizers (`gradience.optim`)
 * **SGD**: Stochastic Gradient Descent (with Momentum & Nesterov).
@@ -185,35 +203,26 @@ uv run python -m pytest --cov=gradience tests/
 
 ## Documentation
 
-Explore our structured documentation to understand the framework's design, internals, and usage:
+Gradience features a comprehensive deep learning textbook curriculum for beginners. All mathematics and code implementations are derived from first principles.
 
-### High-Level Documentation
-* **[Architecture Guide](docs/ARCHITECTURE.md)**: Conceptual diagram and explanation of the core layers.
-* **[Design Philosophy & Decisions](docs/DESIGN.md)**: Architectural choices, trade-offs, and stability decisions.
-* **[Contributing Guidelines](docs/CONTRIBUTING.md)**: Guidelines for adding operations, layers, and writing tests.
-* **[Graph Visualization Guide](docs/visualization.md)**: Conceptual guide and architecture overview of the graph extraction and visualization subsystem.
-* **[Convolution Guide](docs/convolution.md)**: Conceptual guide and architecture overview of the convolution utilities, Conv2D operations, and neural network module.
-
-### Subsystem Internals
-* **[Tensor Engine](docs/internals/tensor.md)**: Smart containers, properties, and operator overloading.
-* **[Autograd Mechanics](docs/internals/autograd.md)**: Dynamic graphs, topological sorting, and reverse differentiation.
-* **[Module Abstractions](docs/internals/module.md)**: Parameter discovery, state tracking, and sequential layers.
-* **[Broadcasting Math](docs/internals/broadcasting.md)**: Handling implicit and explicit shape matching in backpropagation.
-* **[Numerical testing & gradcheck](docs/internals/testing.md)**: How numerical finite difference testing is used to verify analytical gradients.
-
-### Step-by-Step Tutorials
-* **[Tutorial 1: Training Your First Model](docs/tutorials/tutorial_1_linear_regression.md)**: Build a simple linear regression model and write a custom training loop.
-* **[Tutorial 2: Building Deep Neural Networks](docs/tutorials/tutorial_2_deep_learning.md)**: Solve the non-linear XOR classification boundary using multi-layer perceptrons (MLPs).
+### Deep Learning Textbook Chapters
+* **[Syllabus & Roadmap Index](docs/README.md)**: Conceptual index and syllabus of the learning path.
+* **[Chapter 1: Introduction to Deep Learning](docs/chapters/chapter_1_introduction.md)**: Biological/artificial neurons, perceptrons, multi-layer perceptrons, and universal approximation.
+* **[Chapter 2: Building the Foundations](docs/chapters/chapter_2_foundations.md)**: Tensors, computational graphs, backpropagation, and reverse-mode automatic differentiation (autograd).
+* **[Chapter 3: Neural Networks](docs/chapters/chapter_3_neural_networks.md)**: Linear layers, activations (ReLU, Sigmoid, Tanh), loss functions (MSE, BCE, Cross-Entropy), and MLPs.
+* **[Chapter 4: Optimization](docs/chapters/chapter_4_optimization.md)**: Gradient descent variants, SGD (momentum, Nesterov, weight decay), Adagrad, RMSprop, Adam, AdamW, and learning rate scheduling.
+* **[Chapter 5: Training Neural Networks](docs/chapters/chapter_5_training.md)**: Weight initialization (Xavier, Kaiming/He), normalization layers (BatchNorm, LayerNorm), regularization (Dropout), datasets, and dataloaders.
+* **[Chapter 6: Computer Vision Foundations](docs/chapters/chapter_6_computer_vision.md)**: Image representations, 2D convolutions, padding, stride, and pooling (MaxPool2D, AdaptiveAvgPool2D).
+* **[Chapter 7: CNN Architectures](docs/chapters/chapter_7_cnn_architectures.md)**: Milestone vision networks: LeNet-5 for MNIST and original split-device dual-stream AlexNet (channel concatenation via ConcatOp).
 
 ### Example Notebooks
 * **[Graph Visualization Demo](examples/visualize_graph.ipynb)**: Walkthrough of computation graph extraction, rendering, and file export for simple and complex mathematical functions.
 * **[Linear Regression Demo](examples/linear_regression.ipynb)**: Training a simple linear regression model to fit synthetic 1D data.
 * **[XOR Classification Demo](examples/train_xor.ipynb)**: Solving the classic non-linear XOR classification problem with a multi-layer perceptron (MLP).
 * **[MNIST Classification Demo](examples/train_mnist.ipynb)**: Training a two-layer MLP on the MNIST handwritten digit database, showing step-for-step correctness compared with PyTorch.
-
-### API Reference
-* **[API Reference](docs/API_Reference.md)**: Full signatures and parameters of all operators, layers, and optimizers.
-* **[Experiments & Validation](docs/experiments.md)**: Verification of accuracy and convergence relative to PyTorch.
+* **[AlexNet Demo](examples/train_alexnet.ipynb)**: Notebook training the standard single-stream AlexNet model on a CIFAR-10 dataset subset, comparing mathematical correctness and performance directly against PyTorch.
+* **[AlexNet Dual-Stream Demo](examples/train_alexnet_parallel.ipynb)**: Notebook training the historical dual-stream (split-device parallel) AlexNet model on a CIFAR-10 dataset subset, comparing logit outputs, gradients, and loss convergence directly against PyTorch (running on CUDA/GPU).
+* **[LeNet-5 Demo](examples/train_lenet.ipynb)**: Notebook training the classic LeNet-5 architecture on the CIFAR-10 dataset, comparing output logits, gradients, and convergence directly against PyTorch.
 
 ---
 
